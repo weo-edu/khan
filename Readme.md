@@ -19,7 +19,7 @@ All of these are optional.  If you pass nothing e.g. `api = require('khan').khan
 
 ### `oauth`
 
-`oauth` returns an object containing two functions:
+#### Methods
 
     * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
     * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
@@ -58,7 +58,7 @@ oauth
   * `getExercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
   * `getUserExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
 
-E.g.
+#### Example
 
 ```javascript
 var khan = api.khan(consumerKey, consumerSecret, accessToken, tokenSecret)
