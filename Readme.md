@@ -17,12 +17,12 @@ This package exports two top-level properties, `oauth` and `khan`.  `oauth` prov
 
 All of these are optional.  If you pass nothing e.g. `api = require('khan').khan()`, you will only be able to make unauthenticated requests.
 
-### `oauth`
+### oauth
 
 #### Methods
 
-    * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
-    * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
+  * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
+  * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
 
 #### Example
 
@@ -51,7 +51,7 @@ oauth
   })
 ```
 
-### `khan`
+### khan
 
 #### Methods
 
