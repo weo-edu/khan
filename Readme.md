@@ -8,22 +8,22 @@ Khan academy API wrapper
 
 ## Usage
 
-This package exports two top-level properties, the first is `oauth`, and it contains two methods:
+This package exports two top-level properties, the first is `oauth`, and it is a function that expects a `consumerKey` and returns two curried methods:
 
 ### `oauth`
 
 This portion provides some methods to help you with the authentication flow.
 
-    * `getRequestToken(consumerKey)` - Returns a promise that resolves to either an error or a request token
-    * `getAccessToken(consumerKey, requestToken)` - Returns a promise that resolves to either an error or an access token
+    * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
+    * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
 
 #### Example
 
 ```javascript
-var api = require('khan')
+var oauth = require('khan').oauth(consumerKey)
 
-api.oauth
-  .getRequestToken(consumerKey)
+oauth
+  .getRequestToken()
   .then(function (res) {
     // res = {oauth_token, oauth_token_secret}
     // where 'oauth_token' is your request token
@@ -33,10 +33,10 @@ api.oauth
 ```
 
 ```
-var api = require('khan')
+var oauth = require('khan').oauth(consumerKey)
 
-api.oauth
-  .getAccessToken(consumerKey, requestToken, verifier)
+oauth
+  .getAccessToken(requestToken, verifier)
   .then(function (res) {
     // res = {oauth_token, oauth_token_secret}
     // where, in this case, oauth_token is your access token
