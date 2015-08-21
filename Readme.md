@@ -8,29 +8,34 @@ Khan academy API wrapper
 
 ## Usage
 
-This package exports two top-level properties, `oauth` and `khan`.  `oauth` providers helpers for the OAuth flow, and `khan` wraps some of the actual khan api endpoints.  Both properties are functions that take the following arguments:
+This package exports a single, autocurried function.  This function takes up to 4 parameters:
 
 * `consumerKey` - provided by Khan when you register your application
 * `consumerSecret` - provided by Khan when you register your application
 * `accessToken` (optional) - obtained when the user authorizes your application
 * `tokenSecret` (optional) - obtained when the user authorizes your application (required if using `accessToken`)
 
-All of these are optional.  If you pass nothing e.g. `api = require('khan').khan()`, you will only be able to make unauthenticated requests.
+All of these are optional.  If you don't call the function, it is simply a map of unauthenticated requests you may make.
 
-### oauth
+## Methods
 
-#### Methods
+These methods are properties on `khan` (or any curried instance of khan):
 
-  * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
-  * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
+  * `requestToken(redirectUri)` - Returns a promise that resolves to either an error or a request token (requires consumer key/secret)
+  * `accessToken(requestToken)` - Returns a promise that resolves to either an error or an access token (requires consumer key/secret)
+  * `exercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
+  * `userExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
 
-#### Example
+
+## Examples
+
+### Getting a request token
 
 ```javascript
-var oauth = require('khan').oauth(consumerKey, consumerSecret)
+var khan = require('khan')(consumerKey, consumerSecret)
 
-oauth
-  .getRequestToken()
+khan
+  .requestToken()
   .then(function (res) {
     // res = {oauth_token, oauth_token_secret}
     // where 'oauth_token' is your request token
@@ -39,11 +44,13 @@ oauth
   })
 ```
 
-```
-var oauth = require('khan').oauth(consumerKey, consumerSecret)
+### Getting an access token
 
-oauth
-  .getAccessToken(requestToken, verifier)
+```
+var khan = require('khan')(consumerKey, consumerSecret)
+
+khan
+  .accessToken(requestToken, verifier)
   .then(function (res) {
     // res = {oauth_token, oauth_token_secret}
     // where, in this case, oauth_token is your access token
@@ -51,21 +58,16 @@ oauth
   })
 ```
 
-### khan
-
-#### Methods
-
-  * `getExercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
-  * `getUserExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
-
-#### Example
+### Getting exercise data for a particular user
 
 ```javascript
-var khan = api.khan(consumerKey, consumerSecret, accessToken, tokenSecret)
+var khan = require('khan')(consumerKey, consumerSecret)
 
-khan
-  .getUserExercise(exerciseName)
-  .then(function (exercise) {
-    // Do some stuff
-  })
+function getUserExercise (user, exerciseName) {
+  khan(user.oauth_token, user.oauth_token_secret)
+    .getUserExercise(exerciseName)
+    .then(function (exercise) {
+      // Do some stuff
+    })
+}
 ```
