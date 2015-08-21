@@ -8,11 +8,18 @@ Khan academy API wrapper
 
 ## Usage
 
-This package exports two top-level properties, the first is `oauth`, and it is a function that expects a `consumerKey` and returns two curried methods:
+This package exports two top-level properties, `oauth` and `khan`.  `oauth` providers helpers for the OAuth flow, and `khan` wraps some of the actual khan api endpoints.  Both properties are functions that take the following arguments:
+
+* `consumerKey` - provided by Khan when you register your application
+* `consumerSecret` - provided by Khan when you register your application
+* `accessToken` (optional) - obtained when the user authorizes your application
+* `tokenSecret` (optional) - obtained when the user authorizes your application (required if using `accessToken`)
+
+All of these are optional.  If you pass nothing e.g. `api = require('khan').khan()`, you will only be able to make unauthenticated requests.
 
 ### `oauth`
 
-This portion provides some methods to help you with the authentication flow.
+`oauth` returns an object containing two functions:
 
     * `getRequestToken()` - Returns a promise that resolves to either an error or a request token
     * `getAccessToken(requestToken)` - Returns a promise that resolves to either an error or an access token
@@ -20,7 +27,7 @@ This portion provides some methods to help you with the authentication flow.
 #### Example
 
 ```javascript
-var oauth = require('khan').oauth(consumerKey)
+var oauth = require('khan').oauth(consumerKey, consumerSecret)
 
 oauth
   .getRequestToken()
@@ -33,7 +40,7 @@ oauth
 ```
 
 ```
-var oauth = require('khan').oauth(consumerKey)
+var oauth = require('khan').oauth(consumerKey, consumerSecret)
 
 oauth
   .getAccessToken(requestToken, verifier)
@@ -46,16 +53,15 @@ oauth
 
 ### `khan`
 
-The `khan` property is a function, that accepts up to three parameters:
+#### Methods
 
-  * `consumerKey` - your oauth application consumer key
-  * `accessToken` - an oauth access token (such as one from getAccessToken above)
-  * `verifier` - an oauth_verifier, which should have been obtained during the browser portion of the oauth flow
+  * `getExercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
+  * `getUserExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
 
-These parameters are completely optional.  If you want to use the API without authentication, you can just do this `khan = api.khan()`, and you will have access to all of the methods that don't require authentication.  If you do want to use authentication, pass in these parameters, and you'll get back an object map of curried methods that will make authenticated requests for you.  E.g.
+E.g.
 
 ```javascript
-var khan = api.khan(consumerKey, accessToken, verifier)
+var khan = api.khan(consumerKey, consumerSecret, accessToken, tokenSecret)
 
 khan
   .getUserExercise(exerciseName)
@@ -63,8 +69,3 @@ khan
     // Do some stuff
   })
 ```
-
-#### Methods
-
-  * `getExercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
-  * `getUserExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
