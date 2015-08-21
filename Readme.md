@@ -19,17 +19,15 @@ All of these are optional.  If you don't call the function, it is simply a map o
 
 ## Methods
 
-These methods are properties on `khan` (or any curried instance of khan):
+These methods are properties on `khan` (or any curried instance of khan).
 
-  * `requestToken(redirectUri)` - Returns a promise that resolves to either an error or a request token (requires consumer key/secret)
-  * `accessToken(requestToken)` - Returns a promise that resolves to either an error or an access token (requires consumer key/secret)
-  * `exercise(exerciseId)` - Retrieve data about an exercise. (unauthenticated)
-  * `userExercise(exerciseId)` - Retrieve data about an exercise for the currently authenticated user.  (authenticated)
+### requestToken
 
+Params:
 
-## Examples
+  * redirectUri (optional) - Where the user should get redirected after they authorize
 
-### Getting a request token
+#### Example - Getting a request token
 
 ```javascript
 var khan = require('khan')(consumerKey, consumerSecret)
@@ -44,7 +42,17 @@ khan
   })
 ```
 
-### Getting an access token
+
+### accessToken
+
+Retrieve an access token.
+
+Params:
+
+  * `requestToken` - The request token you received in the previous request
+  * `verifier` - The oauth verifier returned by the authorize step
+
+#### Example - Getting an access token
 
 ```
 var khan = require('khan')(consumerKey, consumerSecret)
@@ -58,7 +66,36 @@ khan
   })
 ```
 
-### Getting exercise data for a particular user
+### exercise
+
+Retrieve public data about a particular exercise.
+
+Params:
+
+  * `exerciseName` - Exercise name
+
+#### Example - Retrieving data about an exercise
+
+This is a completely public request, so it doesn't require any auth parameters:
+
+```javascript
+var khan = require('khan')
+
+function getExercise(name) {
+  return khan.exercise(name)
+}
+```
+
+### userExercise
+
+Retrieve a user's state on a particular exercise.
+
+Params:
+
+  * `exerciseName` - Exercise name
+  * `userId` (optional) - User id.  If not passed, retrieves data for the currently authenticated user.
+
+#### Example - Getting exercise data for a particular user
 
 ```javascript
 var khan = require('khan')(consumerKey, consumerSecret)
