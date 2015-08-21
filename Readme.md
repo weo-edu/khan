@@ -25,7 +25,7 @@ These methods are properties on `khan` (or any curried instance of khan).
 
 Params:
 
-  * redirectUri (optional) - Where the user should get redirected after they authorize
+  * `redirectUri` (optional) - Where the user should get redirected after they authorize
 
 #### Example - Getting a request token
 
