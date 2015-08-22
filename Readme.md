@@ -19,7 +19,29 @@ All of these are optional.  If you don't call the function, it is simply a map o
 
 ## Methods
 
-These methods are properties on `khan` (or any curried instance of khan).
+These methods are properties on `khan` (or any curried instance of khan).  Unless otherwise specified, they all return promises:
+
+  * `badges()`
+  * `badgeCategories()`
+  * `badgeCategoryRange(category)`
+  * `exercise(exerciseName)`
+  * `exerciseFollowups(exerciseName)`
+  * `exerciseVideos(exerciseName)`
+  * `playlistVideos(pathTopicSlug)`
+  * `playlistExercises(pathTopicSlug)`
+  * `topic(topicSlug)`
+  * `topicExercises(topicSlug)`
+  * `topicVideos(topicSlug)`
+  * `userExercise(exerciseName)` (auth required)
+  * `userExerciseFollowups(exerciseName)` (auth required)
+  * `userExerciseLog(exerciseName)` (auth required)
+  * `userProgressChanges()`(auth required)
+  * `userPlaylists()` (auth required)
+  * `userVideos()` (auth required)
+  * `userVideo(videoId)` (auth required)
+  * `userVideoLog()` (auth required)
+  * `video(videoId)`
+  * `videoExercises(videoId)`
 
 ### requestToken
 
