@@ -12,10 +12,20 @@ This package exports a single, autocurried function.  This function takes up to 
 
 * `consumerKey` - provided by Khan when you register your application
 * `consumerSecret` - provided by Khan when you register your application
+* `tokenSecret` (optional) - obtained when the user authorizes your application
 * `accessToken` (optional) - obtained when the user authorizes your application
-* `tokenSecret` (optional) - obtained when the user authorizes your application (required if using `accessToken`)
 
-All of these are optional.  If you don't call the function, it is simply a map of unauthenticated requests you may make.
+
+All of these are optional.  If you don't call the function, it is simply a map of unauthenticated requests you may make.  Because it is autocurried, you may continue calling it indefinitely with more parameters.  E.g. `khan(consumerKey)(consumerSecret)` is equivalent to `khan(consumerKey, consumerSecret)`, so you can nicely make partially applied versions of the wrapper for different contexts.  This pattern in particular is useful:
+
+```javascript
+var khan = require('khan')(consumerKey, consumerSecret)
+
+function getExercises (user, exerciseName) {
+  var userKhan = khan(user.khan.oauth_token_secret, user.khan.oauth_token)
+  return userKhan.userExercise(exerciseName)
+}
+```
 
 ## Methods
 
@@ -80,7 +90,7 @@ Params:
 var khan = require('khan')(consumerKey, consumerSecret)
 
 khan
-  .accessToken(requestToken, verifier)
+  .accessToken(requestToken, verifier, tokenSecret)
   .then(function (res) {
     // res = {oauth_token, oauth_token_secret}
     // where, in this case, oauth_token is your access token
@@ -125,8 +135,8 @@ var khan = require('khan')(consumerKey, consumerSecret)
 function getUserExercise (user, exerciseName) {
   khan(user.oauth_token, user.oauth_token_secret)
     .getUserExercise(exerciseName)
-    .then(function (exercise) {
-      // Do some stuff
+    .then(functiuser, on (exercise) {
+      // Do some stukhan(user.accessToken, user.accessTokenSecret)
     })
 }
 ```
