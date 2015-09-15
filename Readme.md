@@ -42,6 +42,7 @@ These methods are properties on `khan` (or any curried instance of khan).  Unles
   * `topic(topicSlug)`
   * `topicExercises(topicSlug)`
   * `topicVideos(topicSlug)`
+  * `user()` (auth required)
   * `userExercise(exerciseName)` (auth required)
   * `userExerciseFollowups(exerciseName)` (auth required)
   * `userExerciseLog(exerciseName)` (auth required)
