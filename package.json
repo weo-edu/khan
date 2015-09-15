@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/weo-edu/khan",
   "dependencies": {
-    "oauth-sign": "git://github.com/weo-edu/oauth-sign.git",
+    "oauth-sign": "^0.8.0",
     "object.map": "^0.2.0",
     "superagent": "^1.3.0",
     "superagent-as-promised": "^3.2.0",
