@@ -33,8 +33,10 @@ These methods are properties on `khan` (or any curried instance of khan).  Unles
 
   * `request(apiPath)`
 
-     - this is a special method that allows you to request any arbitrary path of the khan api. If you call `request(/somepath)`, it will send a (signed if authenticated) request to `https://www.khanacademy.org/api/v1/api/v1/somepath`.
-
+     - this is a special method that allows you to request any arbitrary path of the khan api. If you call `request(/somepath)`, it will send a (signed if authenticated) request to `https://www.khanacademy.org/api/v1/somepath`.
+  * `requestInternal(internalApiPath)`
+     - Similar to `request`, but will send a request to `https://www.khanacademy.org/api/internal/somepath`.
+  
   * `badges()`
   * `badgeCategories()`
   * `badgeCategoryRange(category)`
