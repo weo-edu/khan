@@ -143,7 +143,7 @@ Params:
 var khan = require('khan')(consumerKey, consumerSecret)
 
 function getUserExercise (user, exerciseName) {
-  khan(user.oauth_token, user.oauth_token_secret)
+  khan(user.oauth_token_secret, user.oauth_token)
     .getUserExercise(exerciseName)
     .then(function (exercise) {
       // Do some stuff
