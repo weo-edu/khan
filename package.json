@@ -1,6 +1,6 @@
 {
   "name": "khan",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Khan Academy API wrapper",
   "main": "lib/index.js",
   "scripts": {
