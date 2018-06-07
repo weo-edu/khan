@@ -25,11 +25,11 @@
   "dependencies": {
     "oauth-sign": "^0.8.0",
     "object.map": "^0.2.0",
-    "superagent": "^1.3.0",
+    "superagent": "^3.8.3",
     "superagent-as-promised": "^3.2.0",
     "url-join": "0.0.1"
   },
   "devDependencies": {
-    "standard": "^5.1.0"
+    "standard": "^11.0.1"
   }
 }
